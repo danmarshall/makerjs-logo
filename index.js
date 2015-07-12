@@ -17,7 +17,6 @@ function logo(or, ir, ear, outline, mHeight, serifHeight, speed, drop, columnWid
     var point = makerjs.point;
     var path = makerjs.path;
     var paths = makerjs.paths;
-    var tools = makerjs.tools;
 
     function bend(r, bendTop, x, trimTo, outer) {
 
@@ -25,8 +24,8 @@ function logo(or, ir, ear, outline, mHeight, serifHeight, speed, drop, columnWid
 
         var hguide = new paths.Line([0, bendTop - r], [100, bendTop - r]);
         var vguide = path.rotate(new paths.Line([x, 0], [x, 100]), -speed, [x, 0]);
-        var intersectionPoint = tools.pathIntersection(hguide, vguide).intersectionPoints[0];
-        var center = point.subtract(intersectionPoint, [tools.solveTriangleASA(90, r, speed), 0]);
+        var intersectionPoint = path.intersection(hguide, vguide).intersectionPoints[0];
+        var center = point.subtract(intersectionPoint, [makerjs.solvers.solveTriangleASA(90, r, speed), 0]);
 
         var arc = new paths.Arc(center, r + outer, - speed, 90 + drop);
 
@@ -42,7 +41,7 @@ function logo(or, ir, ear, outline, mHeight, serifHeight, speed, drop, columnWid
 
         var arcPoints = point.fromArc(arc);
 
-        var Vertical = new paths.Line([x + tools.solveTriangleASA(90, outer, speed), 0], arcPoints[0]);
+        var Vertical = new paths.Line([x + makerjs.solvers.solveTriangleASA(90, outer, speed), 0], arcPoints[0]);
 
         if (!outer) {
             trimLine(Vertical, 'origin', bottomGuide);
@@ -68,7 +67,7 @@ function logo(or, ir, ear, outline, mHeight, serifHeight, speed, drop, columnWid
         };
     }
 
-    var speedOutline = tools.solveTriangleASA(90, outline, speed);
+    var speedOutline = makerjs.solvers.solveTriangleASA(90, outline, speed);
 
     var bottomGuide = new paths.Line([0, outline], [100, outline]);
 
@@ -111,7 +110,7 @@ function logo(or, ir, ear, outline, mHeight, serifHeight, speed, drop, columnWid
 }
 
 function trimLine(line, propertyName, trimToPath) {
-    var intersection = makerjs.tools.pathIntersection(line, trimToPath);
+    var intersection = makerjs.path.intersection(line, trimToPath);
     if (intersection) {
         line[propertyName] = intersection.intersectionPoints[0];
     }
@@ -119,7 +118,7 @@ function trimLine(line, propertyName, trimToPath) {
 }
 
 function trimLines(line1, propertyName1, line2, propertyName2) {
-    var intersection = makerjs.tools.pathIntersection(line1, line2);
+    var intersection = makerjs.path.intersection(line1, line2);
     if (intersection) {
         line1[propertyName1] = intersection.intersectionPoints[0];
         line2[propertyName2] = intersection.intersectionPoints[0];
@@ -131,7 +130,7 @@ function trimBends(b1, b2) {
     var intersection = trimLines(b1.paths.Vertical, 'origin', b2.paths.Horizontal, 'origin');
     if (intersection) return;
 
-    intersection = makerjs.tools.pathIntersection(b1.paths.arc, b2.paths.Horizontal);
+    intersection = makerjs.path.intersection(b1.paths.arc, b2.paths.Horizontal);
     if (intersection) {
         b1.paths.arc.startAngle = intersection.path1Angles[0];
         b2.paths.Horizontal.origin = intersection.intersectionPoints[0];
@@ -139,7 +138,7 @@ function trimBends(b1, b2) {
         return;
     }
 
-    intersection = makerjs.tools.pathIntersection(b1.paths.arc, b2.paths.arc);
+    intersection = makerjs.path.intersection(b1.paths.arc, b2.paths.arc);
     if (intersection) {
         b1.paths.arc.startAngle = intersection.path1Angles[0];
         b2.paths.arc.endAngle = intersection.path2Angles[0];
