@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>logo</title>
+	<style>
+		html, body, svg {
+			height: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		svg {
+			width: 100%;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<script src="http://microsoft.github.io/maker.js/target/js/browser.maker.js"></script>
+		
+	<script>
+		var module = {};
+	</script>
+	
+	<script src="index.js"></script>
+	
+	<script>
+		
+		var makerjs = require('makerjs');
+		
+		var model = new logo();
+		
+		var svg = makerjs.exporter.toSVG(model);
+		
+		document.write(svg);
+		
+	</script>
+	
+</body>
+</html>
