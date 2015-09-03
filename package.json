@@ -1,6 +1,6 @@
 {
   "name": "makerjs-logo",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Logo for Maker.js",
   "main": "index.js",
   "scripts": {
@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/danmarshall/makerjs-logo",
   "dependencies": {
-    "makerjs": "^0.4.0"
+    "makerjs": "^0.4.1"
   }
 }
