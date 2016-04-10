@@ -20,6 +20,6 @@
   },
   "homepage": "https://github.com/danmarshall/makerjs-logo",
   "dependencies": {
-    "makerjs": "^0.4.1"
+    "makerjs": "^0.7.2"
   }
 }
