@@ -22,6 +22,7 @@ function logo(outerRadius, innerRadius, serifLength, outline, mHeight, serifHeig
         columnWidth = v.shift();
         spacing = v.shift();
         step = v.shift();
+        joints = v.shift();
     }
     
 	function vGuides(centerX, rightOffset, leftOffset, angle) {
